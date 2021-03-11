@@ -1,0 +1,24 @@
+{
+  "name": "performance-check-action",
+  "version": "1.0.0",
+  "description": "An action to run lighthouse performance checks on a web application",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianBeddows/performance-check-action.git"
+  },
+  "author": "Christian Beddows",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristianBeddows/performance-check-action/issues"
+  },
+  "homepage": "https://github.com/ChristianBeddows/performance-check-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "lighthouse": "^7.2.0"
+  }
+}

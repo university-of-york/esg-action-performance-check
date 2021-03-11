@@ -1,0 +1,18 @@
+name: 'Performance checking with Google Lightouse'
+description: 'Automated performance checking for web applications'
+inputs:
+  urls:
+    description: 'List of URLs to audit.'
+    required: true
+  iterations:
+    description: 'Number of times the check should be run for each page. (Default: 5)'
+    required: false
+  minimum-score:
+    description: 'Threshold that the application must meet in order for the build to pass. (Default: 75)'
+    required: false
+outputs:
+  test:
+    description: 'test'
+runs:
+  using: 'node12'
+  main: 'src/index.js'
