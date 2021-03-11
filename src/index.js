@@ -11,6 +11,7 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
         const urls = core.getInput('urls').split('\n');
         const iterations = core.getInput('iterations') ? core.getInput('iterations') : 5;
         const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
+        const token = core.getInput('repo-token');
 
         const chrome = await chromeLauncher.launch({chromeFlags: ["--headless"]});
 
@@ -62,7 +63,7 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
             }
         }
 
-        let token = process.env['GITHUB_TOKEN'];
+        // let token = process.env['GITHUB_TOKEN'];
 
         if (!token) {
             core.warning("Token is null")
