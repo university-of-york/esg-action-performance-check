@@ -24,6 +24,7 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
         let scores = [];
 
         for (url of urls) {
+            core.info(`Auditing ${url}`)
             let mobileReports = [];
             let desktopReports = [];
 
