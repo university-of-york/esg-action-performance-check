@@ -8,7 +8,7 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
 
 (async () => {
     try {
-        const urls = core.getInput('urls');
+        const urls = core.getInput('urls').split('\n');
         const iterations = core.getInput('iterations') ? core.getInput('iterations') : 5;
         const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
 
