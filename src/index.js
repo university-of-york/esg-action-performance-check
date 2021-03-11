@@ -62,6 +62,15 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
             }
         }
 
+        const octokit = github.getOctokit(process.env['GITHUB_TOKEN'])
+
+        await octokit.issues.createComment({
+            owner: 'ChristianBeddows',
+            repo: 'workflow-testing',
+            issue_number: 1,
+            body: 'This is a comment!'
+        })
+
         if (checkFailed) {
             core.setFailed(`The performance check failed:\n${failureOutput}`);
         } else {
