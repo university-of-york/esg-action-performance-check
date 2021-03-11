@@ -77,7 +77,7 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
             owner: 'ChristianBeddows',
             repo: 'workflow-testing',
             issue_number: 1,
-            body: 'This is a comment!'
+            body: generateComment(scores, !checkFailed)
         })
 
         if (checkFailed) {
@@ -90,3 +90,31 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
         core.setFailed(error.message)
     }
 })();
+
+const generateComment = (scores, success) => {
+    return `
+        <h1>Performance scores</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Page</th>
+                    <th>Mobile Score</th>
+                    <th>Desktop Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${
+                    scores.reduce((body, score) => {
+                        return body + `<tr>
+                                            <td>${score.url}</td>
+                                            <td>${score.mobile}</td>
+                                            <td>${score.desktop}</td>
+                                       </tr>`
+                    }, '')
+                }
+            </tbody>
+        </table>
+        <p>Result: ${success ? "Pass" : "Fail"}</p>
+        <sub>performance-check-action</sub>
+    `
+}

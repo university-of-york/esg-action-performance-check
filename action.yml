@@ -1,6 +1,9 @@
 name: 'Performance checking with Google Lightouse'
 description: 'Automated performance checking for web applications'
 inputs:
+  repo-token:
+    description: 'Github repo token.'
+    required: true
   urls:
     description: 'List of URLs to audit.'
     required: true
