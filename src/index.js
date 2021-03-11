@@ -62,7 +62,15 @@ const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-conf
             }
         }
 
-        const octokit = github.getOctokit(process.env['GITHUB_TOKEN'])
+        let token = process.env['GITHUB_TOKEN'];
+
+        if (!token) {
+            core.warning("Token is null")
+        } else {
+            core.warning(`Token length: ${token.length}`)
+        }
+
+        const octokit = github.getOctokit(token)
 
         await octokit.issues.createComment({
             owner: 'ChristianBeddows',
