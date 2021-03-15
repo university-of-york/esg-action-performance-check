@@ -1,4 +1,5 @@
 const core = require("@actions/core");
+const {context} = require("@actions/github");
 const {lighthouseReport, checkScores} = require("./lighthouse");
 const {addCommentToPR} = require("./comments");
 
@@ -8,11 +9,23 @@ const {addCommentToPR} = require("./comments");
         const iterations = core.getInput('iterations') ? core.getInput('iterations') : 5;
         const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
 
+        core.info(JSON.stringify(context.sha));
+        core.info(JSON.stringify(context.ref));
+
+        core.info("beginning audit");
+
         const scores = await lighthouseReport(urls, iterations);
+
+        core.info("checking scores");
 
         const [success, output] = checkScores(scores, threshold);
 
-        await addCommentToPR(scores, success);
+        if (context.issue.number) {
+            await addCommentToPR(scores, success, threshold);
+            core.info("adding comment to PR")
+        }
+
+        core.info("Set success")
 
         if (success) {
             core.info("passed!");
