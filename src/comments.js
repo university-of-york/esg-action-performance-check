@@ -34,11 +34,12 @@ const addOrUpdateCommentForPR = async (scores, success) => {
 }
 
 const findComment = (comments) => {
-    return comments.data.find(comment => {
+    const comment = comments.data.find(comment => {
         return comment.user.login === "github-actions[bot]"
-               &&
-               comment.body.includes("<sub>performance-check-action</sub>");
-    }).id;
+            &&
+            comment.body.includes("<sub>performance-check-action</sub>");
+    });
+    return (comment) ? comment.id : null;
 };
 
 const generateComment = (scores, success) => {
