@@ -22,6 +22,12 @@ const lighthouseReport = async () => {
     let scores = [];
     let success = true;
 
+    fs.mkdir('./reports', (error) => {
+        if (error) {
+            core.error(error);
+        }
+    });
+
     for (url of urls) {
         core.info(`Auditing ${url}`)
         let mobileReports = [];
@@ -31,8 +37,8 @@ const lighthouseReport = async () => {
             const mobileReport = await lighthouse(url, options, mobileConfig);
             const desktopReport = await lighthouse(url, options, desktopConfig);
 
-            fs.writeFileSync(`./reports/${url}-${i}.mobile.report.html`, mobileReport.report);
-            fs.writeFileSync(`./reports/${url}-${i}.desktop.report.html`, desktopReport.report);
+            fs.writeFileSync(`./reports/${sanitizedUrl(url)}-${i+1}.mobile.report.html`, mobileReport.report);
+            fs.writeFileSync(`./reports/${sanitizedUrl(url)}-${i+1}.desktop.report.html`, desktopReport.report);
 
             mobileReports.push(mobileReport.lhr);
             desktopReports.push(desktopReport.lhr);
@@ -63,6 +69,14 @@ const lighthouseReport = async () => {
     await chrome.kill();
 
     return [scores, success]
+}
+
+const sanitizedUrl = (url) => {
+    return url.replace('http://', '')
+              .replace('https://', '')
+              .replace(/\//g, '_')
+              .replace(/:/g, '-')
+              .replace(/\./g, '-');
 }
 
 const score = (median) => {
