@@ -1,7 +1,7 @@
 const core = require("@actions/core");
 const {context} = require("@actions/github");
 const {lighthouseReport, checkScores} = require("./lighthouse");
-const {addCommentToPR} = require("./comments");
+const {addOrUpdateCommentForPR} = require("./comments");
 
 (async () => {
     try {
@@ -21,7 +21,7 @@ const {addCommentToPR} = require("./comments");
         const [success, output] = checkScores(scores, threshold);
 
         if (context.issue.number) {
-            await addCommentToPR(scores, success, threshold);
+            await addOrUpdateCommentForPR(scores, success, threshold);
             core.info("adding comment to PR")
         }
 
