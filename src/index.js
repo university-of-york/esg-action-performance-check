@@ -1,11 +1,14 @@
 const core = require("@actions/core");
 const {context} = require("@actions/github");
 const {lighthouseReport} = require("./lighthouse");
+const {uploadArtifact} = require("./artifacts");
 const {addOrUpdateCommentForPR} = require("./comments");
 
 (async () => {
     try {
         const [scores, success] = await lighthouseReport();
+
+        await uploadArtifact();
 
         if (context.issue.number) {
             await addOrUpdateCommentForPR(scores, success);
@@ -16,7 +19,6 @@ const {addOrUpdateCommentForPR} = require("./comments");
         } else {
             core.setFailed("The performance check failed.");
         }
-
     } catch (error) {
         core.setFailed(error.message)
     }

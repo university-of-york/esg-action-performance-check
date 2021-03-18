@@ -1,3 +1,4 @@
+const fs = require('fs');
 const core = require("@actions/core");
 const chromeLauncher = require("chrome-launcher");
 const lighthouse = require("lighthouse");
@@ -13,6 +14,7 @@ const lighthouseReport = async () => {
     const chrome = await chromeLauncher.launch({chromeFlags: ["--headless"]});
 
     const options = {
+        output: "html",
         onlyCategories: ["performance"],
         port: chrome.port,
     };
@@ -28,6 +30,9 @@ const lighthouseReport = async () => {
         for (let i = 0; i < iterations; i++) {
             const mobileReport = await lighthouse(url, options, mobileConfig);
             const desktopReport = await lighthouse(url, options, desktopConfig);
+
+            fs.writeFileSync(`./reports/${url}-${i}.mobile.report.html`, mobileReport.report);
+            fs.writeFileSync(`./reports/${url}-${i}.desktop.report.html`, desktopReport.report);
 
             mobileReports.push(mobileReport.lhr);
             desktopReports.push(desktopReport.lhr);
