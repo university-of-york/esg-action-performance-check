@@ -76,6 +76,11 @@ const sanitizedUrl = (url) => {
               .replace('https://', '')
               .replace(/\//g, '_')
               .replace(/:/g, '-')
+              .replace(/\?/g, '-')
+              .replace(/&/g, '-')
+              .replace(/#/g, '-')
+              .replace(/%/g, '-')
+              .replace(/=/g, '-')
               .replace(/\./g, '-');
 }
 
