@@ -5,17 +5,20 @@ const {computeMedianRun} = require("lighthouse/lighthouse-core/lib/median-run");
 const mobileConfig = require("lighthouse/lighthouse-core/config/lr-mobile-config");
 const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-config");
 
-const lighthouseReport = async (urls, iterations) => {
+const lighthouseReport = async () => {
+    const urls = core.getInput('urls').split('\n');
+    const iterations = core.getInput('iterations') ? core.getInput('iterations') : 5;
+    const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
+
     const chrome = await chromeLauncher.launch({chromeFlags: ["--headless"]});
 
     const options = {
-        // logLevel: "info",
-        output: "html",
         onlyCategories: ["performance"],
         port: chrome.port,
     };
 
     let scores = [];
+    let success = true;
 
     for (url of urls) {
         core.info(`Auditing ${url}`)
@@ -30,37 +33,35 @@ const lighthouseReport = async (urls, iterations) => {
             desktopReports.push(desktopReport.lhr);
         }
 
-        let mobileMedian = computeMedianRun(mobileReports);
-        let desktopMedian = computeMedianRun(desktopReports);
+        const mobileMedian = computeMedianRun(mobileReports);
+        const desktopMedian = computeMedianRun(desktopReports);
+
+        const mobileScore = score(mobileMedian);
+        const desktopScore = score(desktopMedian);
+
+        if (mobileScore < threshold) {
+            success = false;
+            core.error(`FAIL: ${url} (mobile): ${mobileScore}`);
+        }
+        if (desktopScore < threshold) {
+            success = false;
+            core.error(`FAIL: ${url} (desktop): ${desktopScore}`);
+        }
 
         scores.push({
             url: url,
-            mobile: mobileMedian.categories.performance.score * 100,
-            desktop: desktopMedian.categories.performance.score * 100,
+            mobile: mobileScore,
+            desktop: desktopScore,
         });
     }
 
     await chrome.kill();
 
-    return scores
+    return [scores, success]
 }
 
-const checkScores = (scores, threshold) => {
-    let success = true;
-    let output = '';
-
-    for (score of scores) {
-        if (score.mobile < threshold) {
-            success = false;
-            output += `${url} (mobile): ${score.mobile}\n`
-        }
-        if (score.desktop < threshold) {
-            success = false;
-            output += `${url} (desktop): ${score.desktop}\n`
-        }
-    }
-
-    return [success, output]
+const score = (median) => {
+    return Math.floor(median.categories.performance.score * 100);
 }
 
-module.exports = { lighthouseReport, checkScores };
+module.exports = { lighthouseReport };
