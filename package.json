@@ -2,9 +2,9 @@
   "name": "performance-check-action",
   "version": "1.0.0",
   "description": "An action to run lighthouse performance checks on a web application",
-  "main": "src/index.js",
+  "main": "src/main/index.js",
   "scripts": {
-    "test": "node src/index.js"
+    "test": "node src/main/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "lighthouse": "^7.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }
