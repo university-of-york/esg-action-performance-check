@@ -5,8 +5,8 @@ This action takes a list of URLs and audits their performance multiple times, fo
 
 Once the audit has been completed, a comment will be added to the PR (if in the context of a PR) and the reports will be uploaded as an artifact:
 
-![Example PR comment](https://christianbeddows.github.io/performance-check-action/images/comment.png)
-![Summary of a failed check](https://christianbeddows.github.io/performance-check-action/images/workflow-summary.png)
+![Example PR comment](https://university-of-york.github.io/esg-action-performance-check/images/comment.png)
+![Summary of a failed check](https://university-of-york.github.io/esg-action-performance-check/images/workflow-summary.png)
 
 This action has the following parameters:
 * `repo-token` (required): The token for this Github repo so that the action can interact with any PRs. Populate this using `${{ secrets.GITHUB_TOKEN }}` in your workflow file.

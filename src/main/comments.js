@@ -69,7 +69,7 @@ const generateComment = (scores, success) => {
                 ${passFailBadge(success)}
                 ${performanceBadges(scores)}
                 <span>${context.sha}</span><br/>
-                <a href="https://github.com/ChristianBeddows/performance-check-action">
+                <a href="https://github.com/university-of-york/esg-action-performance-check">
                     <sub>performance-check-action</sub>
                 </a>
             </html>`
