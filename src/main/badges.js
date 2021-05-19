@@ -13,16 +13,14 @@ const performanceBadges = (scores) => {
     const mobileSum = scores.reduce((sum, score) => sum + score.mobile, 0);
     const desktopSum = scores.reduce((sum, score) => sum + score.desktop, 0);
 
-    const averageMobileScore = mobileSum / scores.length;
-    const averageDesktopScore = desktopSum / scores.length;
+    const averageMobileScore = Math.floor(mobileSum / scores.length);
+    const averageDesktopScore = Math.floor(desktopSum / scores.length);
 
     const mobileColour = colourForScore(averageMobileScore);
     const desktopColour = colourForScore(averageDesktopScore);
 
-    return `
-      <img src="https://img.shields.io/badge/Average_Mobile_Performance-${averageMobileScore}-${mobileColour}"/>  
-      <img src="https://img.shields.io/badge/Average_Desktop_Performance-${averageDesktopScore}-${desktopColour}"/>  
-    `
+    return `<img src="https://img.shields.io/badge/Average_Mobile_Performance-${averageMobileScore}-${mobileColour}"/>  
+            <img src="https://img.shields.io/badge/Average_Desktop_Performance-${averageDesktopScore}-${desktopColour}"/>`
 }
 
 const colourForScore = (score) => {
