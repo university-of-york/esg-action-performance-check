@@ -4,7 +4,7 @@
   "description": "An action to run lighthouse performance checks on a web application",
   "main": "src/main/index.js",
   "scripts": {
-    "test": "node src/main/index.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
