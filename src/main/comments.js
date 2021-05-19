@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const {context, getOctokit} = require("@actions/github");
-const {colourForScore} = require("./util");
+const {passFailBadge, performanceBadges} = require("./badges");
 
 const addOrUpdateCommentForPR = async (scores, success) => {
     const token = core.getInput('repo-token');
@@ -73,32 +73,6 @@ const generateComment = (scores, success) => {
                     <sub>performance-check-action</sub>
                 </a>
             </html>`
-}
-
-const passFailBadge = (success) => {
-    const text = success ? "PASSED" : "FAILED";
-    const colour = success ? "brightgreen" : "red";
-
-    return `<img src="https://img.shields.io/badge/Build-${text}-${colour}"/>`
-}
-
-const performanceBadges = (scores) => {
-    const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
-
-    const mobileSum = scores.reduce((sum, score) => sum + score.mobile, 0);
-    const desktopSum = scores.reduce((sum, score) => sum + score.desktop, 0);
-
-    core.info(`Mobile sum of scores: ${mobileSum}`);
-    core.info(`Desktop sum of scores: ${desktopSum}`);
-
-    const averageMobileScore = Math.floor(mobileSum / scores.length);
-    const averageDesktopScore = Math.floor(desktopSum / scores.length);
-
-    const mobileColour = colourForScore(averageMobileScore, threshold);
-    const desktopColour = colourForScore(averageDesktopScore, threshold);
-
-    return `<img src="https://img.shields.io/badge/Average_Mobile_Performance-${averageMobileScore}-${mobileColour}"/>  
-            <img src="https://img.shields.io/badge/Average_Desktop_Performance-${averageDesktopScore}-${desktopColour}"/>`
 }
 
 module.exports = { addOrUpdateCommentForPR };
