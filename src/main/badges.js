@@ -30,6 +30,8 @@ const colourForScore = (score) => {
         return "brightgreen"
     } else if (score >= 80) {
         return "green"
+    } else if (score >= 70) {
+        return "yellowgreen"
     } else if (score >= 60) {
         return "yellow"
     } else if (score >= 40) {
