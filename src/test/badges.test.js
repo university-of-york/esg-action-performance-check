@@ -1,24 +1,19 @@
-const {passFailBadge, performanceBadges, colourForScore} = require("../main/badges");
+const { passFailBadge, performanceBadges, colourForScore } = require("../main/badges");
 
 describe("passFailBadge", () => {
-
     const data = [
-        [true, "<img src=\"https://img.shields.io/badge/Build-PASSED-brightgreen\"/>"],
-        [false, "<img src=\"https://img.shields.io/badge/Build-FAILED-red\"/>"],
+        [true, '<img src="https://img.shields.io/badge/Build-PASSED-brightgreen"/>'],
+        [false, '<img src="https://img.shields.io/badge/Build-FAILED-red"/>'],
         [null, ""],
     ];
 
-    test.each(data)(
-        "Correctly constructs badge when success is %s",
-        (success, expectedBadge) => {
-            expect(passFailBadge(success)).toEqual(expectedBadge);
-        }
-    )
+    test.each(data)("Correctly constructs badge when success is %s", (success, expectedBadge) => {
+        expect(passFailBadge(success)).toEqual(expectedBadge);
+    });
 });
 
 describe("performanceBadges", () => {
     it("Correctly constructs performance badges", () => {
-
         const scores = [
             {
                 mobile: 80,
@@ -34,19 +29,17 @@ describe("performanceBadges", () => {
             },
         ];
 
-        const expectedMobileBadge = "<img src=\"https://img.shields.io/badge/Average_Mobile_Performance-60-yellow\"/>";
-        const expectedDesktopBadge = "<img src=\"https://img.shields.io/badge/Average_Desktop_Performance-30-red\"/>";
+        const expectedMobileBadge = '<img src="https://img.shields.io/badge/Average_Mobile_Performance-60-yellow"/>';
+        const expectedDesktopBadge = '<img src="https://img.shields.io/badge/Average_Desktop_Performance-30-red"/>';
 
         const html = performanceBadges(scores);
 
         expect(html).toContain(expectedMobileBadge);
         expect(html).toContain(expectedDesktopBadge);
-
     });
 });
 
 describe("colourForScore", () => {
-
     const data = [
         [95, "brightgreen"],
         [90, "brightgreen"],
@@ -64,10 +57,7 @@ describe("colourForScore", () => {
         [null, "lightgrey"],
     ];
 
-    test.each(data)(
-        "Performance score of %i gives colour: %s",
-        (score, expectedColour) => {
-            expect(colourForScore(score)).toEqual(expectedColour);
-        }
-    )
+    test.each(data)("Performance score of %i gives colour: %s", (score, expectedColour) => {
+        expect(colourForScore(score)).toEqual(expectedColour);
+    });
 });

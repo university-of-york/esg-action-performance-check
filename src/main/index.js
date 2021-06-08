@@ -1,7 +1,7 @@
 const core = require("@actions/core");
-const {context} = require("@actions/github");
-const {lighthouseReport} = require("./lighthouse");
-const {addOrUpdateCommentForPR} = require("./comments");
+const { context } = require("@actions/github");
+const { lighthouseReport } = require("./lighthouse");
+const { addOrUpdateCommentForPR } = require("./comments");
 
 (async () => {
     try {
@@ -17,6 +17,6 @@ const {addOrUpdateCommentForPR} = require("./comments");
             core.setFailed("The performance check failed.");
         }
     } catch (error) {
-        core.setFailed(error.message)
+        core.setFailed(error.message);
     }
 })();

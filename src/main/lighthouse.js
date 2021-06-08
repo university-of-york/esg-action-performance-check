@@ -1,17 +1,17 @@
-const fs = require('fs');
+const fs = require("fs");
 const core = require("@actions/core");
 const chromeLauncher = require("chrome-launcher");
 const lighthouse = require("lighthouse");
-const {computeMedianRun} = require("lighthouse/lighthouse-core/lib/median-run");
+const { computeMedianRun } = require("lighthouse/lighthouse-core/lib/median-run");
 const mobileConfig = require("lighthouse/lighthouse-core/config/lr-mobile-config");
 const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-config");
 
 const lighthouseReport = async () => {
-    const urls = core.getInput('urls').split('\n');
-    const iterations = core.getInput('iterations') ? core.getInput('iterations') : 5;
-    const threshold = core.getInput('minimum-score') ? core.getInput('minimum-score') : 75;
+    const urls = core.getInput("urls").split("\n");
+    const iterations = core.getInput("iterations") ? core.getInput("iterations") : 5;
+    const threshold = core.getInput("minimum-score") ? core.getInput("minimum-score") : 75;
 
-    const chrome = await chromeLauncher.launch({chromeFlags: ["--headless"]});
+    const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
     const options = {
         output: "html",
@@ -19,16 +19,16 @@ const lighthouseReport = async () => {
         port: chrome.port,
     };
 
-    let scores = [];
+    const scores = [];
     let success = true;
 
-    fs.mkdir('./reports', (error) => {
+    fs.mkdir("./reports", (error) => {
         if (error) {
             core.error(error);
         }
     });
 
-    fs.mkdir('./results', (error) => {
+    fs.mkdir("./results", (error) => {
         if (error) {
             core.error(error);
         }
@@ -36,10 +36,10 @@ const lighthouseReport = async () => {
 
     let reportIteration = 1;
 
-    for (url of urls) {
-        core.info(`Auditing ${url}`)
-        let mobileReports = [];
-        let desktopReports = [];
+    for (const url of urls) {
+        core.info(`Auditing ${url}`);
+        const mobileReports = [];
+        const desktopReports = [];
 
         for (let i = 0; i < iterations; i++) {
             const mobileReport = await lighthouse(url, options, mobileConfig);
@@ -64,27 +64,28 @@ const lighthouseReport = async () => {
             success = false;
             core.error(`FAIL: ${url} (mobile): ${mobileScore}`);
         }
+
         if (desktopScore < threshold) {
             success = false;
             core.error(`FAIL: ${url} (desktop): ${desktopScore}`);
         }
 
         scores.push({
-            url: url,
+            url,
             mobile: mobileScore,
             desktop: desktopScore,
         });
     }
 
-    fs.writeFileSync('./results/result.json', JSON.stringify({success: success, scores: scores}));
+    fs.writeFileSync("./results/result.json", JSON.stringify({ success, scores }));
 
     await chrome.kill();
 
-    return [scores, success]
-}
+    return [scores, success];
+};
 
 const score = (median) => {
     return Math.floor(median.categories.performance.score * 100);
-}
+};
 
 module.exports = { lighthouseReport };

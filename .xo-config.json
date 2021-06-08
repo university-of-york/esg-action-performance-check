@@ -10,13 +10,20 @@
   ],
   "envs": ["browser"],
   "rules": {
+    "camelcase": "off",
     "capitalized-comments": "off",
     "indent": "off",
+    "import/extensions": "off",
     "import/no-unassigned-import": "off",
+    "no-await-in-loop": "off",
+    "no-else-return": "off",
     "no-warning-comments": "off",
     "unicorn/catch-error-name": "off",
     "unicorn/filename-case": "off",
     "unicorn/import-index": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/prefer-module": "off",
+    "unicorn/prefer-number-properties": "off",
     "unicorn/prevent-abbreviations": "off"
   },
   "space": 4

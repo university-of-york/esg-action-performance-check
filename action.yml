@@ -1,21 +1,21 @@
-name: 'Performance checking with Google Lightouse'
-description: 'Automated performance checking for web applications'
+name: "Performance checking with Google Lightouse"
+description: "Automated performance checking for web applications"
 inputs:
   repo-token:
-    description: 'Github repo token.'
+    description: "Github repo token."
     required: true
   urls:
-    description: 'List of URLs to audit.'
+    description: "List of URLs to audit."
     required: true
   iterations:
-    description: 'Number of times the check should be run for each page. (Default: 5)'
+    description: "Number of times the check should be run for each page. (Default: 5)"
     required: false
   minimum-score:
-    description: 'Threshold that the application must meet in order for the build to pass. (Default: 75)'
+    description: "Threshold that the application must meet in order for the build to pass. (Default: 75)"
     required: false
 outputs:
   test:
-    description: 'test'
+    description: "test"
 runs:
-  using: 'node12'
-  main: 'src/main/index.js'
+  using: "node12"
+  main: "src/main/index.js"
