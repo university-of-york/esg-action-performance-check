@@ -4,13 +4,19 @@
   "description": "An action to run lighthouse performance checks on a web application",
   "main": "src/main/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write .",
+    "checkformat": "prettier --check .",
+    "lint": "xo .",
+    "formatandcheck": "npm run format && npm run lint && npm run test",
+    "fc": "npm run formatandcheck",
+    "check": "npm run checkformat && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/university-of-york/esg-action-performance-check.git"
   },
-  "author": "Christian Beddows",
+  "author": "University of York",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/university-of-york/esg-action-performance-check/issues"
@@ -22,6 +28,8 @@
     "lighthouse": "^7.2.0"
   },
   "devDependencies": {
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "prettier": "^2.3.1",
+    "xo": "^0.40.2"
   }
 }
