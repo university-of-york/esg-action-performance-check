@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateComment Generates a comment that matches snapshot (20, 30, false) 1`] = `
+"<html>
+                <h1>Performance scores</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Mobile Score</th>
+                            <th>Desktop Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                                    <td>http://localhost:3000/home</td>
+                                                    <td>30</td>
+                                                    <td>20</td>
+                                               </tr><tr>
+                                                    <td>http://localhost:3000/page</td>
+                                                    <td>15</td>
+                                                    <td>40</td>
+                                               </tr>
+                    </tbody>
+                </table>
+                <img src=\\"https://img.shields.io/badge/Build-FAILED-red\\"/>
+                <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-22-red\\"/>  
+            <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-30-red\\"/>
+                <span>undefined</span><br/>
+                <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
+                    <sub>performance-check-action</sub>
+                </a>
+            </html>"
+`;
+
+exports[`generateComment Generates a comment that matches snapshot (40, 50, true) 1`] = `
+"<html>
+                <h1>Performance scores</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Mobile Score</th>
+                            <th>Desktop Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                                    <td>http://localhost:3000/home</td>
+                                                    <td>50</td>
+                                                    <td>40</td>
+                                               </tr><tr>
+                                                    <td>http://localhost:3000/page</td>
+                                                    <td>25</td>
+                                                    <td>80</td>
+                                               </tr>
+                    </tbody>
+                </table>
+                <img src=\\"https://img.shields.io/badge/Build-PASSED-brightgreen\\"/>
+                <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-37-red\\"/>  
+            <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-60-yellow\\"/>
+                <span>undefined</span><br/>
+                <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
+                    <sub>performance-check-action</sub>
+                </a>
+            </html>"
+`;
+
+exports[`generateComment Generates a comment that matches snapshot (80, 70, false) 1`] = `
+"<html>
+                <h1>Performance scores</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Mobile Score</th>
+                            <th>Desktop Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                                    <td>http://localhost:3000/home</td>
+                                                    <td>70</td>
+                                                    <td>80</td>
+                                               </tr><tr>
+                                                    <td>http://localhost:3000/page</td>
+                                                    <td>35</td>
+                                                    <td>160</td>
+                                               </tr>
+                    </tbody>
+                </table>
+                <img src=\\"https://img.shields.io/badge/Build-FAILED-red\\"/>
+                <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-52-orange\\"/>  
+            <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-120-brightgreen\\"/>
+                <span>undefined</span><br/>
+                <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
+                    <sub>performance-check-action</sub>
+                </a>
+            </html>"
+`;
+
+exports[`generateComment Generates a comment that matches snapshot (90, 80, true) 1`] = `
+"<html>
+                <h1>Performance scores</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Mobile Score</th>
+                            <th>Desktop Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                                    <td>http://localhost:3000/home</td>
+                                                    <td>80</td>
+                                                    <td>90</td>
+                                               </tr><tr>
+                                                    <td>http://localhost:3000/page</td>
+                                                    <td>40</td>
+                                                    <td>180</td>
+                                               </tr>
+                    </tbody>
+                </table>
+                <img src=\\"https://img.shields.io/badge/Build-PASSED-brightgreen\\"/>
+                <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-60-yellow\\"/>  
+            <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-135-brightgreen\\"/>
+                <span>undefined</span><br/>
+                <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
+                    <sub>performance-check-action</sub>
+                </a>
+            </html>"
+`;

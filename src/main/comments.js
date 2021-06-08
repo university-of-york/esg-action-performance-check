@@ -78,4 +78,4 @@ const generateComment = (scores, success) => {
 };
 /* eslint-enable indent */
 
-module.exports = { addOrUpdateCommentForPR };
+module.exports = { addOrUpdateCommentForPR, generateComment };
