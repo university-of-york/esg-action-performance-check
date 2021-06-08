@@ -34,6 +34,8 @@ const lighthouseReport = async () => {
         }
     });
 
+    let reportIteration = 1;
+
     for (url of urls) {
         core.info(`Auditing ${url}`)
         let mobileReports = [];
@@ -43,11 +45,13 @@ const lighthouseReport = async () => {
             const mobileReport = await lighthouse(url, options, mobileConfig);
             const desktopReport = await lighthouse(url, options, desktopConfig);
 
-            fs.writeFileSync(`./reports/${sanitizedUrl(url)}-${i+1}.mobile.report.html`, mobileReport.report);
-            fs.writeFileSync(`./reports/${sanitizedUrl(url)}-${i+1}.desktop.report.html`, desktopReport.report);
+            fs.writeFileSync(`./reports/${reportIteration}.mobile.report.html`, mobileReport.report);
+            fs.writeFileSync(`./reports/${reportIteration}.desktop.report.html`, desktopReport.report);
 
             mobileReports.push(mobileReport.lhr);
             desktopReports.push(desktopReport.lhr);
+
+            reportIteration++;
         }
 
         const mobileMedian = computeMedianRun(mobileReports);
@@ -77,19 +81,6 @@ const lighthouseReport = async () => {
     await chrome.kill();
 
     return [scores, success]
-}
-
-const sanitizedUrl = (url) => {
-    return url.replace('http://', '')
-              .replace('https://', '')
-              .replace(/\//g, '_')
-              .replace(/:/g, '-')
-              .replace(/\?/g, '-')
-              .replace(/&/g, '-')
-              .replace(/#/g, '-')
-              .replace(/%/g, '-')
-              .replace(/=/g, '-')
-              .replace(/\./g, '-');
 }
 
 const score = (median) => {
