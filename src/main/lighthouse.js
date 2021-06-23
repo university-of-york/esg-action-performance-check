@@ -18,7 +18,7 @@ const lighthouseReport = async () => {
 
     setupDirs();
 
-    for (const url of config.urls) {
+    for (const url of config.urls()) {
         const score = await auditUrl(url);
 
         scores.push(score);
@@ -50,7 +50,7 @@ const auditUrl = async (url) => {
     const mobileReports = [];
     const desktopReports = [];
 
-    for (let i = 0; i < config.iterations; i++) {
+    for (let i = 0; i < config.iterations(); i++) {
         const mobileReport = await lighthouse(url, config.options(chromePort), mobileConfig);
         const desktopReport = await lighthouse(url, config.options(chromePort), desktopConfig);
 
@@ -66,12 +66,12 @@ const auditUrl = async (url) => {
     const mobileScore = score(mobileReports);
     const desktopScore = score(desktopReports);
 
-    if (mobileScore < config.mobileThreshold) {
+    if (mobileScore < config.mobileThreshold()) {
         isSuccess = false;
         core.error(`FAIL: ${url} (mobile): ${mobileScore}`);
     }
 
-    if (desktopScore < config.desktopThreshold) {
+    if (desktopScore < config.desktopThreshold()) {
         isSuccess = false;
         core.error(`FAIL: ${url} (desktop): ${desktopScore}`);
     }
