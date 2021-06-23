@@ -5,13 +5,13 @@ const { addOrUpdateCommentForPR } = require("./comments");
 
 (async () => {
     try {
-        const [scores, success] = await lighthouseReport();
+        const [scores, isSuccess] = await lighthouseReport();
 
         if (context.issue.number) {
-            await addOrUpdateCommentForPR(scores, success);
+            await addOrUpdateCommentForPR(scores, isSuccess);
         }
 
-        if (success) {
+        if (isSuccess) {
             core.info("The performance check passed.");
         } else {
             core.setFailed("The performance check failed.");

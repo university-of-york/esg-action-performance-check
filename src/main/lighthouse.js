@@ -5,23 +5,33 @@ const lighthouse = require("lighthouse");
 const { computeMedianRun } = require("lighthouse/lighthouse-core/lib/median-run");
 const mobileConfig = require("lighthouse/lighthouse-core/config/lr-mobile-config");
 const desktopConfig = require("lighthouse/lighthouse-core/config/lr-desktop-config");
+const config = require("./config");
+
+const scores = [];
+let isSuccess = true;
+let reportIteration = 1;
+let chromePort;
 
 const lighthouseReport = async () => {
-    const urls = core.getInput("urls").split("\n");
-    const iterations = core.getInput("iterations") ? core.getInput("iterations") : 5;
-    const threshold = core.getInput("minimum-score") ? core.getInput("minimum-score") : 75;
-
     const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
+    chromePort = chrome.port;
 
-    const options = {
-        output: "html",
-        onlyCategories: ["performance"],
-        port: chrome.port,
-    };
+    setupDirs();
 
-    const scores = [];
-    let success = true;
+    for (const url of config.urls) {
+        const score = await auditUrl(url);
 
+        scores.push(score);
+    }
+
+    fs.writeFileSync("./results/result.json", JSON.stringify({ isSuccess, scores }));
+
+    await chrome.kill();
+
+    return [scores, isSuccess];
+};
+
+const setupDirs = () => {
     fs.mkdir("./reports", (error) => {
         if (error) {
             core.error(error);
@@ -33,58 +43,49 @@ const lighthouseReport = async () => {
             core.error(error);
         }
     });
-
-    let reportIteration = 1;
-
-    for (const url of urls) {
-        core.info(`Auditing ${url}`);
-        const mobileReports = [];
-        const desktopReports = [];
-
-        for (let i = 0; i < iterations; i++) {
-            const mobileReport = await lighthouse(url, options, mobileConfig);
-            const desktopReport = await lighthouse(url, options, desktopConfig);
-
-            fs.writeFileSync(`./reports/${reportIteration}.mobile.report.html`, mobileReport.report);
-            fs.writeFileSync(`./reports/${reportIteration}.desktop.report.html`, desktopReport.report);
-
-            mobileReports.push(mobileReport.lhr);
-            desktopReports.push(desktopReport.lhr);
-
-            reportIteration++;
-        }
-
-        const mobileMedian = computeMedianRun(mobileReports);
-        const desktopMedian = computeMedianRun(desktopReports);
-
-        const mobileScore = score(mobileMedian);
-        const desktopScore = score(desktopMedian);
-
-        if (mobileScore < threshold) {
-            success = false;
-            core.error(`FAIL: ${url} (mobile): ${mobileScore}`);
-        }
-
-        if (desktopScore < threshold) {
-            success = false;
-            core.error(`FAIL: ${url} (desktop): ${desktopScore}`);
-        }
-
-        scores.push({
-            url,
-            mobile: mobileScore,
-            desktop: desktopScore,
-        });
-    }
-
-    fs.writeFileSync("./results/result.json", JSON.stringify({ success, scores }));
-
-    await chrome.kill();
-
-    return [scores, success];
 };
 
-const score = (median) => {
+const auditUrl = async (url) => {
+    core.info(`Auditing ${url}`);
+    const mobileReports = [];
+    const desktopReports = [];
+
+    for (let i = 0; i < config.iterations; i++) {
+        const mobileReport = await lighthouse(url, config.options(chromePort), mobileConfig);
+        const desktopReport = await lighthouse(url, config.options(chromePort), desktopConfig);
+
+        fs.writeFileSync(`./reports/${reportIteration}.mobile.report.html`, mobileReport.report);
+        fs.writeFileSync(`./reports/${reportIteration}.desktop.report.html`, desktopReport.report);
+
+        mobileReports.push(mobileReport.lhr);
+        desktopReports.push(desktopReport.lhr);
+
+        reportIteration++;
+    }
+
+    const mobileScore = score(mobileReports);
+    const desktopScore = score(desktopReports);
+
+    if (mobileScore < config.mobileThreshold) {
+        isSuccess = false;
+        core.error(`FAIL: ${url} (mobile): ${mobileScore}`);
+    }
+
+    if (desktopScore < config.desktopThreshold) {
+        isSuccess = false;
+        core.error(`FAIL: ${url} (desktop): ${desktopScore}`);
+    }
+
+    return {
+        url,
+        mobile: mobileScore,
+        desktop: desktopScore,
+    };
+};
+
+const score = (reports) => {
+    const median = computeMedianRun(reports);
+
     return Math.floor(median.categories.performance.score * 100);
 };
 
