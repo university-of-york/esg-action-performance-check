@@ -10,8 +10,11 @@ inputs:
   iterations:
     description: "Number of times the check should be run for each page. (Default: 5)"
     required: false
-  minimum-score:
-    description: "Threshold that the application must meet in order for the build to pass. (Default: 75)"
+  minimum-desktop-score:
+    description: "Threshold that the application must meet on desktop devices in order for the build to pass. (Default: 80)"
+    required: false
+  minimum-mobile-score:
+    description: "Threshold that the application must meet on mobile devices in order for the build to pass. (Default: 80)"
     required: false
 outputs:
   test:

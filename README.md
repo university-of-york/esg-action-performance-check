@@ -61,7 +61,8 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           iterations: 7
-          minimum-score: 80
+          minimum-desktop-score: 90
+          minimum-mobile-score: 80
           urls: |
             http://localhost:3000
             http://localhost:3000/search
