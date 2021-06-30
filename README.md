@@ -3,16 +3,17 @@
 A Github action to audit the performance of a web application within a CICD pipeline using Google Lighthouse. 
 This action takes a list of URLs and audits their performance multiple times, for both desktop and mobile devices. 
 
-Once the audit has been completed, a comment will be added to the PR (if in the context of a PR) and the reports will be uploaded as an artifact:
+Once the audit has been completed, a comment will be added to the PR (if in the context of a PR):
 
-![Example PR comment](https://university-of-york.github.io/esg-action-performance-check/images/comment.png)
-![Summary of a failed check](https://university-of-york.github.io/esg-action-performance-check/images/workflow-summary.png)
+![Example PR comment](images/comment.png)
+![Summary of a failed check](images/workflow-summary.png)
 
 This action has the following parameters:
-* `repo-token` (required): The token for this Github repo so that the action can interact with any PRs. Populate this using `${{ secrets.GITHUB_TOKEN }}` in your workflow file.
-* `urls` (required): A list of URLs/endpoints that the action should audit for performance.
-* `iterations` (optional - default: 5): The number of times that each endpoint should be audited. See the note on variance below.
-* `minimum-score` (optional - default: 75): The threshold that must be met by all performance audits or else the check will fail.
+* `repo-token` _(required)_: The token for this Github repo so that the action can interact with any PRs. Populate this using `${{ secrets.GITHUB_TOKEN }}` in your workflow file.
+* `urls` _(required)_: A list of URLs/endpoints that the action should audit for performance.
+* `iterations` _(optional - default: 5)_: The number of times that each endpoint should be audited. See the note on variance below.
+* `minimum-desktop-score` _(optional - default: 80)_: The threshold that must be met by all desktop performance audits or else the check will fail.
+* `minimum-mobile-score` _(optional - default: 80)_: The threshold that must be met by all mobile performance audits or else the check will fail.
 
 ### Variance
 
@@ -57,7 +58,7 @@ jobs:
         run: sleep 5
 
       - name: Check Lighthouse performance score
-        uses: ChristianBeddows/performance-check-action@v1
+        uses: university-of-york/esg-action-performance-check@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           iterations: 7
@@ -68,4 +69,10 @@ jobs:
             http://localhost:3000/search
             http://localhost:3000/blog
             http://localhost:3000/settings
+            
+     - name: Upload performance reports as artifact
+       uses: actions/upload-artifact@v2
+       with: 
+        name: reports
+        path: /reports
 ```
