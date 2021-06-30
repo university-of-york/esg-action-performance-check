@@ -43,7 +43,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Install application dependencies
         run: npm ci
@@ -70,9 +70,10 @@ jobs:
             http://localhost:3000/blog
             http://localhost:3000/settings
             
-     - name: Upload performance reports as artifact
-       uses: actions/upload-artifact@v2
-       with: 
-        name: reports
-        path: /reports
+      - name: Upload performance reports as artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }} #Upload reports even if the check fails
+        with:
+          name: reports
+          path: ./reports
 ```
