@@ -17,12 +17,12 @@ const iterations = () => {
     return core.getInput("iterations") ? core.getInput("iterations") : DEFAULT_ITERATIONS;
 };
 
-const mobileThreshold = () => {
+const desktopThreshold = () => {
     return core.getInput("minimum-desktop-score") ? core.getInput("minimum-desktop-score") : DEFAULT_THRESHOLD;
 };
 
-const desktopThreshold = () => {
+const mobileThreshold = () => {
     return core.getInput("minimum-mobile-score") ? core.getInput("minimum-mobile-score") : DEFAULT_THRESHOLD;
 };
 
-module.exports = { options, urls, iterations, mobileThreshold, desktopThreshold };
+module.exports = { options, urls, iterations, desktopThreshold, mobileThreshold };
