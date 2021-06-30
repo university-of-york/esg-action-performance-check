@@ -16,9 +16,6 @@ inputs:
   minimum-mobile-score:
     description: "Threshold that the application must meet on mobile devices in order for the build to pass. (Default: 80)"
     required: false
-outputs:
-  test:
-    description: "test"
 runs:
   using: "node12"
   main: "src/main/index.js"
