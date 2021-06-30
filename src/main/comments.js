@@ -60,10 +60,10 @@ const generateComment = (scores, success) => {
                             return (
                                 body +
                                 `<tr>
-                                                    <td>${score.url}</td>
-                                                    <td>${score.mobile}</td>
-                                                    <td>${score.desktop}</td>
-                                               </tr>`
+                                    <td>${score.url}</td>
+                                    <td>${score.mobile}</td>
+                                    <td>${score.desktop}</td>
+                                </tr>`
                             );
                         }, "")}
                     </tbody>

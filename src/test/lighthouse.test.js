@@ -27,7 +27,7 @@ describe("lighthouseReport", () => {
 
 const clearDownDir = (path) => {
     if (fs.existsSync(path)) {
-        fs.rmdir(path, { recursive: true }, (error) => {
+        fs.rm(path, { recursive: true }, (error) => {
             if (error) {
                 console.error(error);
             }

@@ -37,6 +37,10 @@ describe("performanceBadges", () => {
         expect(html).toContain(expectedMobileBadge);
         expect(html).toContain(expectedDesktopBadge);
     });
+
+    it("Handles null input", () => {
+        expect(performanceBadges(null)).toEqual("");
+    });
 });
 
 describe("colourForScore", () => {
