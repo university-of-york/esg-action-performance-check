@@ -1,5 +1,11 @@
 const { generateComment, findComment } = require("../main/comments");
 
+jest.mock("@actions/github", () => ({
+    context: {
+        sha: "a1b2c3d4e5f6",
+    },
+}));
+
 describe("generateComment", () => {
     it.each([
         [90, 80, true],

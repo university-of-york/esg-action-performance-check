@@ -26,7 +26,7 @@ exports[`generateComment Generates a comment that matches snapshot (20, 30, fals
                 <img src=\\"https://img.shields.io/badge/Build-FAILED-red\\"/>
                 <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-22-red\\"/>  
             <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-30-red\\"/>
-                <span>undefined</span><br/>
+                <span>a1b2c3d4e5f6</span><br/>
                 <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
                     <sub>performance-check-action</sub>
                 </a>
@@ -59,7 +59,7 @@ exports[`generateComment Generates a comment that matches snapshot (40, 50, true
                 <img src=\\"https://img.shields.io/badge/Build-PASSED-brightgreen\\"/>
                 <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-37-red\\"/>  
             <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-60-yellow\\"/>
-                <span>undefined</span><br/>
+                <span>a1b2c3d4e5f6</span><br/>
                 <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
                     <sub>performance-check-action</sub>
                 </a>
@@ -92,7 +92,7 @@ exports[`generateComment Generates a comment that matches snapshot (80, 70, fals
                 <img src=\\"https://img.shields.io/badge/Build-FAILED-red\\"/>
                 <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-52-orange\\"/>  
             <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-120-brightgreen\\"/>
-                <span>undefined</span><br/>
+                <span>a1b2c3d4e5f6</span><br/>
                 <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
                     <sub>performance-check-action</sub>
                 </a>
@@ -125,7 +125,7 @@ exports[`generateComment Generates a comment that matches snapshot (90, 80, true
                 <img src=\\"https://img.shields.io/badge/Build-PASSED-brightgreen\\"/>
                 <img src=\\"https://img.shields.io/badge/Average_Mobile_Performance-60-yellow\\"/>  
             <img src=\\"https://img.shields.io/badge/Average_Desktop_Performance-135-brightgreen\\"/>
-                <span>undefined</span><br/>
+                <span>a1b2c3d4e5f6</span><br/>
                 <a href=\\"https://github.com/university-of-york/esg-action-performance-check\\">
                     <sub>performance-check-action</sub>
                 </a>
