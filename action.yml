@@ -1,4 +1,4 @@
-name: "Performance checking with Google Lightouse"
+name: "Performance checking with Google Lighthouse"
 description: "Automated performance checking for web applications"
 inputs:
   repo-token:
