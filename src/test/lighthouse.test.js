@@ -34,19 +34,23 @@ describe("lighthouseReport", () => {
         clearDownDir("./results");
     });
 
-    it("Audits the list of input URLS and generates reports", async () => {
-        const [scores, isSuccess] = await lighthouseReport();
-        const numberOfReports = fs.readdirSync("./reports").length;
-        const numberOfResultFiles = fs.readdirSync("./results").length;
+    it(
+        "Audits the list of input URLS and generates reports",
+        async () => {
+            const [scores, isSuccess] = await lighthouseReport();
+            const numberOfReports = fs.readdirSync("./reports").length;
+            const numberOfResultFiles = fs.readdirSync("./results").length;
 
-        expect(isSuccess).not.toBeNull();
-        expect(scores).toHaveLength(3);
-        expect(scores[1].url).toBe("https://www.bbc.co.uk");
-        expect(scores[1].desktop).not.toBeNull();
-        expect(scores[1].mobile).not.toBeNull();
-        expect(numberOfReports).toEqual(12);
-        expect(numberOfResultFiles).toEqual(1);
-    }, FIVE_MINUTES);
+            expect(isSuccess).not.toBeNull();
+            expect(scores).toHaveLength(3);
+            expect(scores[1].url).toBe("https://www.bbc.co.uk");
+            expect(scores[1].desktop).not.toBeNull();
+            expect(scores[1].mobile).not.toBeNull();
+            expect(numberOfReports).toEqual(12);
+            expect(numberOfResultFiles).toEqual(1);
+        },
+        FIVE_MINUTES
+    );
 });
 
 const clearDownDir = (path) => {
