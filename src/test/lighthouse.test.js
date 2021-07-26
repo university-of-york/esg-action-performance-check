@@ -26,6 +26,8 @@ config.options = jest.fn().mockImplementation((port) => {
     };
 });
 
+const FIVE_MINUTES = 300_000;
+
 describe("lighthouseReport", () => {
     beforeEach(() => {
         clearDownDir("./reports");
@@ -44,7 +46,7 @@ describe("lighthouseReport", () => {
         expect(scores[1].mobile).not.toBeNull();
         expect(numberOfReports).toEqual(12);
         expect(numberOfResultFiles).toEqual(1);
-    }, 300_000);
+    }, FIVE_MINUTES);
 });
 
 const clearDownDir = (path) => {
